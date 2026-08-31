@@ -105,42 +105,44 @@ export function CardShowcase() {
   }, []);
 
   return (
-    <div className="card-orbit-clip">
-    <div ref={root} className={`card-orbit${live ? " is-live" : ""}`} aria-roledescription="carousel">
-      <div className="orbit-still">
-        <img
-          src={FIRST.file}
-          alt="Mark VCARDe NFC business card"
-          width={720}
-          height={406}
-          decoding="async"
-          fetchPriority="high"
-        />
+    <div className="card-orbit-wrap">
+      <div className="card-orbit-clip">
+        <div ref={root} className={`card-orbit${live ? " is-live" : ""}`} aria-roledescription="carousel">
+          <div className="orbit-still">
+            <img
+              src={FIRST.file}
+              alt="VCARDe gold and green NFC business card"
+              width={1050}
+              height={600}
+              decoding="async"
+              fetchPriority="high"
+            />
+          </div>
+          {goldCards.map((card, i) => (
+            <article
+              key={card.id}
+              className="orbit-card"
+              ref={(node) => {
+                cards.current[i] = node;
+              }}
+            >
+              <img
+                src={card.file}
+                alt={card.name}
+                width={1050}
+                height={600}
+                decoding="async"
+                loading={i === 0 ? "eager" : "lazy"}
+                fetchPriority={i === 0 ? "high" : "low"}
+              />
+            </article>
+          ))}
+        </div>
       </div>
-      {goldCards.map((card, i) => (
-        <article
-          key={card.id}
-          className="orbit-card"
-          ref={(node) => {
-            cards.current[i] = node;
-          }}
-        >
-          <img
-            src={card.file}
-            alt={card.name}
-            width={720}
-            height={406}
-            decoding="async"
-            loading={i === 0 ? "eager" : "lazy"}
-            fetchPriority={i === 0 ? "high" : "low"}
-          />
-        </article>
-      ))}
       <p className="card-orbit-caption">
         {goldCards[front].name} · {goldCards[front].brand}
       </p>
-      <p className="card-orbit-hint">Scroll or drag</p>
-    </div>
+      <p className="card-orbit-hint">Drag to spin the print finishes</p>
     </div>
   );
 }

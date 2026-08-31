@@ -35,7 +35,12 @@ function PhoneChrome({
 }) {
   return (
     <article className={cn("tpl-phone", theme, compact && "is-compact")}>
+      <span className="iphone-btn iphone-silent" aria-hidden />
+      <span className="iphone-btn iphone-vol-up" aria-hidden />
+      <span className="iphone-btn iphone-vol-down" aria-hidden />
+      <span className="iphone-btn iphone-power" aria-hidden />
       <div className="tpl-bezel">
+        <span className="iphone-island" aria-hidden />
         <div className="tpl-screen">{children}</div>
       </div>
     </article>
@@ -94,10 +99,10 @@ export function TemplateCard({
       <PhoneChrome theme="tpl-original" compact={compact}>
         <img
           src={tpl.image}
-          alt=""
+          alt={`${tpl.name} digital visiting card template`}
           className="tpl-shot"
-          width={400}
-          height={800}
+          width={390}
+          height={844}
           loading="lazy"
           decoding="async"
         />

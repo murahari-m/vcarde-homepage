@@ -5,40 +5,27 @@ import { cn } from "@/lib/utils";
 function InlayArt() {
   return (
     <svg viewBox="0 0 320 202" className="nfc-inlay-art" aria-hidden>
-      <rect width="320" height="202" rx="12" fill="#161310" />
-      <rect x="14" y="14" width="292" height="174" rx="8" fill="none" stroke="#c47a38" strokeWidth="3.2" />
-      <rect x="26" y="26" width="268" height="150" rx="6" fill="none" stroke="#c47a38" strokeWidth="2.4" />
-      <rect x="38" y="38" width="244" height="126" rx="5" fill="none" stroke="#d3924a" strokeWidth="2" />
-      <rect x="50" y="50" width="220" height="102" rx="4" fill="none" stroke="#c47a38" strokeWidth="1.8" />
-      <rect x="62" y="62" width="196" height="78" rx="3" fill="none" stroke="#a8662e" strokeWidth="1.5" />
-      <path d="M160 62 V50" stroke="#c47a38" strokeWidth="1.8" />
-      <path d="M172 101 H268" stroke="#c47a38" strokeWidth="1.8" />
-      <rect x="148" y="86" width="28" height="30" rx="2" fill="#2c2a26" stroke="#8d8878" strokeWidth="1.2" />
-      <rect x="152" y="90" width="20" height="8" fill="#3f3c36" />
-      <rect x="154" y="102" width="6" height="8" fill="#6a6558" />
-      <rect x="164" y="102" width="6" height="8" fill="#6a6558" />
-      <text x="160" y="148" textAnchor="middle" fill="#c47a38" fontSize="9" fontFamily="ui-monospace, monospace" letterSpacing="1.4">
-        NTAG 213
+      <rect width="320" height="202" rx="10" fill="#12100c" />
+      <rect x="12" y="12" width="296" height="178" rx="7" fill="none" stroke="#c9a84c" strokeWidth="1.2" strokeDasharray="4 3" />
+      <rect x="28" y="28" width="264" height="146" rx="6" fill="none" stroke="#8be64a" strokeWidth="2.4" />
+      <rect x="44" y="42" width="232" height="118" rx="4" fill="none" stroke="#c9a84c" strokeWidth="1.8" />
+      <rect x="60" y="56" width="200" height="90" rx="3" fill="none" stroke="#6a9a3a" strokeWidth="1.4" />
+      <path d="M160 56 V42" stroke="#c9a84c" strokeWidth="1.6" />
+      <path d="M176 101 H276" stroke="#c9a84c" strokeWidth="1.6" />
+      <rect x="146" y="86" width="28" height="30" rx="2" fill="#1c1a16" stroke="#8be64a" strokeWidth="1.2" />
+      <rect x="150" y="90" width="20" height="7" fill="#2a3224" />
+      <rect x="152" y="102" width="6" height="8" fill="#c9a84c" />
+      <rect x="162" y="102" width="6" height="8" fill="#c9a84c" />
+      <text x="160" y="162" textAnchor="middle" fill="#8be64a" fontSize="9" fontFamily="ui-monospace, monospace" letterSpacing="1.6">
+        NTAG 213  ·  ISO 14443-A
       </text>
     </svg>
   );
 }
 
-function ReverseArt() {
-  return (
-    <div className="nfc-reverse" aria-hidden>
-      <p>VCARDe</p>
-      <span className="nfc-qr">
-        {Array.from({ length: 64 }, (_, i) => (
-          <i key={i} className={(i * 7) % 5 === 0 || (i * 3) % 7 === 0 ? "on" : undefined} />
-        ))}
-      </span>
-    </div>
-  );
-}
-
 export function NfcExplode() {
   const root = useRef<HTMLDivElement>(null);
+  const stack = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(true);
   const [active, setActive] = useState<string | null>("inlay");
 
@@ -63,45 +50,80 @@ export function NfcExplode() {
     return () => io.disconnect();
   }, []);
 
+  useEffect(() => {
+    const stage = root.current?.querySelector(".nfc-explode-stage") as HTMLElement | null;
+    const el = stack.current;
+    if (!stage || !el) return;
+    const onMove = (e: PointerEvent) => {
+      const r = stage.getBoundingClientRect();
+      const x = ((e.clientX - r.left) / r.width - 0.5) * 16;
+      const y = ((e.clientY - r.top) / r.height - 0.5) * 10;
+      el.style.setProperty("--tilt-x", `${x}deg`);
+      el.style.setProperty("--tilt-y", `${-y}deg`);
+    };
+    const onLeave = () => {
+      el.style.setProperty("--tilt-x", "0deg");
+      el.style.setProperty("--tilt-y", "0deg");
+    };
+    stage.addEventListener("pointermove", onMove);
+    stage.addEventListener("pointerleave", onLeave);
+    return () => {
+      stage.removeEventListener("pointermove", onMove);
+      stage.removeEventListener("pointerleave", onLeave);
+    };
+  }, []);
+
   return (
     <div ref={root} className={cn("nfc-explode", open && "is-open")}>
       <div className="nfc-explode-stage">
-        <div className="nfc-stack" aria-hidden={!open}>
+        <span className="nfc-dim nfc-dim-h" aria-hidden />
+        <span className="nfc-dim nfc-dim-v" aria-hidden />
+        <div ref={stack} className="nfc-stack" aria-hidden={!open}>
           <div
             className={cn("nfc-layer layer-lamination", active === "lamination" && "is-active")}
             onMouseEnter={() => setActive("lamination")}
+            onClick={() => setActive("lamination")}
           >
             <span className="nfc-film" />
+            <em className="nfc-tag">01 film</em>
           </div>
           <div
             className={cn("nfc-layer layer-print", active === "print" && "is-active")}
             onMouseEnter={() => setActive("print")}
+            onClick={() => setActive("print")}
           >
-            <img src="/cards/vcarde-gold-uv.jpg" alt="" width={480} height={270} />
+            <img src="/cards/vcarde-gilt.jpg" alt="" width={1050} height={600} />
+            <em className="nfc-tag">02 print</em>
           </div>
           <div
             className={cn("nfc-layer layer-inlay", active === "inlay" && "is-active")}
             onMouseEnter={() => setActive("inlay")}
+            onClick={() => setActive("inlay")}
           >
             <InlayArt />
+            <em className="nfc-tag">03 chip</em>
           </div>
           <div
             className={cn("nfc-layer layer-core", active === "core" && "is-active")}
             onMouseEnter={() => setActive("core")}
+            onClick={() => setActive("core")}
           >
-            <span className="nfc-core-sheet">PVC</span>
+            <span className="nfc-core-sheet">PVC CORE</span>
+            <em className="nfc-tag">04 core</em>
           </div>
           <div
             className={cn("nfc-layer layer-back", active === "back" && "is-active")}
             onMouseEnter={() => setActive("back")}
+            onClick={() => setActive("back")}
           >
-            <ReverseArt />
+            <img src="/cards/vcarde-field.jpg" alt="" width={1050} height={600} />
+            <em className="nfc-tag">05 reverse</em>
           </div>
         </div>
       </div>
 
       <div className="nfc-legend">
-        <p className="nfc-legend-kicker">CR80 construction</p>
+        <p className="nfc-legend-kicker">CR80 exploded view</p>
         <ol>
           {nfcLayers.map((layer, i) => (
             <li key={layer.id}>

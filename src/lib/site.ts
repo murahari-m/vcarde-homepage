@@ -19,7 +19,7 @@ export const site = {
     home: "/",
     login: "https://vcarde.com/login",
     register: "https://vcarde.com/login",
-    templates: "https://vcarde.com/templates",
+    templates: "/templates",
     faq: "https://vcarde.com/faq",
     nfc: "https://m.vcarde.com/",
     nfcShop: "https://m.vcarde.com/shop/",
@@ -76,13 +76,39 @@ export const originalTemplates = [
   { kind: "original" as const, id: "vcard8", name: "Oak", image: "/templates/vcard8.jpg" },
   { kind: "original" as const, id: "vcard9", name: "Coral", image: "/templates/vcard9.jpg" },
   { kind: "original" as const, id: "vcard10", name: "Tide", image: "/templates/vcard10.jpg" },
+  { kind: "original" as const, id: "vcard11", name: "Harbor", image: "/templates/vcard11.jpg" },
   { kind: "original" as const, id: "vcard12", name: "Byte", image: "/templates/vcard12.jpg" },
   { kind: "original" as const, id: "vcard13", name: "Brief", image: "/templates/vcard13.jpg" },
+  { kind: "original" as const, id: "vcard14", name: "Marble", image: "/templates/vcard14.jpg" },
+  { kind: "original" as const, id: "vcard15", name: "Quartz", image: "/templates/vcard15.jpg" },
+  { kind: "original" as const, id: "vcard16", name: "Carbon", image: "/templates/vcard16.jpg" },
   { kind: "original" as const, id: "vcard17", name: "Runway", image: "/templates/vcard17.jpg" },
+  { kind: "original" as const, id: "vcard18", name: "Drift", image: "/templates/vcard18.jpg" },
+  { kind: "original" as const, id: "vcard19", name: "Vale", image: "/templates/vcard19.jpg" },
+  { kind: "original" as const, id: "vcard20", name: "Ridge", image: "/templates/vcard20.jpg" },
+  { kind: "original" as const, id: "vcard21", name: "Cove", image: "/templates/vcard21.jpg" },
   { kind: "original" as const, id: "vcard22", name: "Chalk", image: "/templates/vcard22.jpg" },
+  { kind: "original" as const, id: "vcard23", name: "Ember", image: "/templates/vcard23.jpg" },
+  { kind: "original" as const, id: "vcard24", name: "Slate", image: "/templates/vcard24.jpg" },
+  { kind: "original" as const, id: "vcard25", name: "Ink", image: "/templates/vcard25.jpg" },
+  { kind: "original" as const, id: "vcard26", name: "Fern", image: "/templates/vcard26.jpg" },
   { kind: "original" as const, id: "vcard27", name: "Petal", image: "/templates/vcard27.jpg" },
+  { kind: "original" as const, id: "vcard28", name: "Grove", image: "/templates/vcard28.jpg" },
+  { kind: "original" as const, id: "vcard29", name: "Dune", image: "/templates/vcard29.jpg" },
+  { kind: "original" as const, id: "vcard30", name: "Mist", image: "/templates/vcard30.jpg" },
+  { kind: "original" as const, id: "vcard31", name: "Halo", image: "/templates/vcard31.jpg" },
+  { kind: "original" as const, id: "vcard32", name: "Forge", image: "/templates/vcard32.jpg" },
   { kind: "original" as const, id: "vcard33", name: "Lens", image: "/templates/vcard33.jpg" },
+  { kind: "original" as const, id: "vcard34", name: "Apex", image: "/templates/vcard34.jpg" },
+  { kind: "original" as const, id: "vcard35", name: "Orbit", image: "/templates/vcard35.jpg" },
+  { kind: "original" as const, id: "vcard36", name: "Crest", image: "/templates/vcard36.jpg" },
+  { kind: "original" as const, id: "vcard37", name: "North", image: "/templates/vcard37.jpg" },
   { kind: "original" as const, id: "vcard38", name: "Suite", image: "/templates/vcard38.jpg" },
+  { kind: "original" as const, id: "vcard39", name: "Cipher", image: "/templates/vcard39.jpg" },
+  { kind: "original" as const, id: "vcard40", name: "Mono", image: "/templates/vcard40.jpg" },
+  { kind: "original" as const, id: "vcard41", name: "Folio", image: "/templates/vcard41.jpg" },
+  { kind: "original" as const, id: "vcard42", name: "Nimbus", image: "/templates/vcard42.jpg" },
+  { kind: "original" as const, id: "vcard43", name: "Solstice", image: "/templates/vcard43.jpg" },
 ] as const;
 
 export const storeTemplates = [
@@ -193,9 +219,9 @@ export type StoreTemplate = (typeof storeTemplates)[number];
 export type ShowcaseCard = StudioTemplate | OriginalTemplate | StoreTemplate;
 
 export const marqueeCards: ShowcaseCard[] = [
-  ...studioTemplates,
-  ...originalTemplates,
-  ...storeTemplates,
+  ...studioTemplates.slice(0, 6),
+  ...originalTemplates.slice(0, 8),
+  ...storeTemplates.slice(0, 4),
 ];
 
 export const nfcProducts = [

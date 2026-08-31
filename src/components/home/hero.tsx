@@ -1,14 +1,15 @@
 import { ArrowRight, Nfc } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CardShowcase } from "@/components/home/card-showcase";
+import { NfcCanvas } from "@/components/three/nfc-canvas";
 import { site } from "@/lib/site";
 
 export function Hero() {
   return (
     <section className="relative">
       <div className="hero-glow pointer-events-none absolute inset-x-0 top-0" />
-      <div className="mx-auto max-w-6xl px-4 pt-12 sm:px-6 lg:pt-16">
-        <div className="hero-stagger max-w-2xl">
+      <div className="mx-auto grid max-w-6xl items-center gap-6 px-4 pt-12 sm:px-6 lg:grid-cols-2 lg:gap-10 lg:pt-16">
+        <div className="hero-stagger max-w-xl">
           <p className="text-xs font-medium uppercase tracking-caps text-accent">
             NFC business cards · Mylapore, Chennai
           </p>
@@ -38,8 +39,9 @@ export function Hero() {
             From ₹499 · Free shipping in India · 5-year warranty · No VCARDe logo on the card
           </p>
         </div>
+        <NfcCanvas />
       </div>
-      <div className="mx-auto max-w-6xl px-2 pb-1 pt-4 sm:px-4">
+      <div className="mx-auto max-w-6xl px-2 pb-2 pt-2 sm:px-4">
         <CardShowcase />
       </div>
     </section>

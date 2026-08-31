@@ -19,9 +19,10 @@ export const Route = createRootRoute({
       { name: "theme-color", content: "#070807" },
     ],
     links: [
-      { rel: "preload", as: "image", href: "/cards/vcarde-cmyk.jpg", fetchPriority: "high" },
-      { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
-      { rel: "icon", type: "image/png", href: "/brand/favicon.png" },
+      { rel: "preload", as: "image", href: "/cards/vcarde-gilt.jpg", fetchPriority: "high" },
+      { rel: "icon", type: "image/png", sizes: "32x32", href: "/brand/favicon-32.png" },
+      { rel: "icon", type: "image/png", sizes: "512x512", href: "/favicon.png" },
+      { rel: "apple-touch-icon", href: "/brand/apple-touch.png" },
       { rel: "stylesheet", href: appCss },
       { rel: "manifest", href: "/__grok/manifest.webmanifest" },
       { rel: "apple-touch-icon", href: "/__grok/icon-180.png" },
