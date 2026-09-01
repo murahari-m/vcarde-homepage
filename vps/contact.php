@@ -243,31 +243,7 @@ $html = "<p><strong>Name:</strong> " . $safe($name) . "</p>"
 $subject = "Website enquiry from " . $name;
 
 $sent = false;
-if ($MAIL_HOST !== "") {
-  try {
-    smtp_send(
-      [
-        "host" => $MAIL_HOST,
-        "port" => $MAIL_PORT !== "" ? $MAIL_PORT : "587",
-        "username" => $MAIL_USERNAME,
-        "password" => $MAIL_PASSWORD,
-        "encryption" => $MAIL_ENCRYPTION !== "" ? $MAIL_ENCRYPTION : "tls",
-      ],
-      $MAIL_TO_ADDRESS,
-      $MAIL_FROM_ADDRESS,
-      $MAIL_FROM_NAME,
-      $email,
-      $name,
-      $subject,
-      $html
-    );
-    $sent = true;
-  } catch (Throwable $e) {
-    $sent = false;
-  }
-}
-
-if (!$sent && $BREVO_API_KEY !== "") {
+if ($BREVO_API_KEY !== "") {
   $payload = [
     "sender" => ["name" => $MAIL_FROM_NAME, "email" => $MAIL_FROM_ADDRESS],
     "to" => [["email" => $MAIL_TO_ADDRESS, "name" => "VCARDe"]],
@@ -293,9 +269,33 @@ if (!$sent && $BREVO_API_KEY !== "") {
   $sent = $code >= 200 && $code < 300;
 }
 
+if (!$sent && $MAIL_HOST !== "") {
+  try {
+    smtp_send(
+      [
+        "host" => $MAIL_HOST,
+        "port" => $MAIL_PORT !== "" ? $MAIL_PORT : "587",
+        "username" => $MAIL_USERNAME,
+        "password" => $MAIL_PASSWORD,
+        "encryption" => $MAIL_ENCRYPTION !== "" ? $MAIL_ENCRYPTION : "tls",
+      ],
+      $MAIL_TO_ADDRESS,
+      $MAIL_FROM_ADDRESS,
+      $MAIL_FROM_NAME,
+      $email,
+      $name,
+      $subject,
+      $html
+    );
+    $sent = true;
+  } catch (Throwable $e) {
+    $sent = false;
+  }
+}
+
 if (!$sent) {
   http_response_code(502);
-  echo json_encode(["ok" => false, "error" => "Could not send mail. Check MAIL_HOST in .env"]);
+  echo json_encode(["ok" => false, "error" => "Could not send mail"]);
   exit;
 }
 
