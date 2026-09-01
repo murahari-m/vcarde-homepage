@@ -1,6 +1,23 @@
 import { Link } from "@tanstack/react-router";
+import { Facebook, Instagram, Youtube } from "lucide-react";
+import { EmailLink } from "@/components/home/email-link";
 import { PlaceMap } from "@/components/home/place-map";
-import { site } from "@/lib/site";
+import { site, socials } from "@/lib/site";
+
+function XIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className="size-4" aria-hidden="true" fill="currentColor">
+      <path d="M18.9 2H22l-6.8 7.8L23 22h-6.6l-5.2-6.8L5.5 22H2.4l7.3-8.4L1 2h6.8l4.7 6.2L18.9 2Zm-1.2 18h1.8L6.4 3.9H4.5L17.7 20Z" />
+    </svg>
+  );
+}
+
+function SocialIcon({ label }: { label: (typeof socials)[number]["label"] }) {
+  if (label === "Facebook") return <Facebook className="size-4" strokeWidth={1.75} />;
+  if (label === "Instagram") return <Instagram className="size-4" strokeWidth={1.75} />;
+  if (label === "YouTube") return <Youtube className="size-4" strokeWidth={1.75} />;
+  return <XIcon />;
+}
 
 export function SiteFooter() {
   return (
@@ -14,6 +31,20 @@ export function SiteFooter() {
             NFC business cards and digital visiting cards from Mylapore, Chennai. Printed with{" "}
             {site.sister}. Free shipping across India.
           </p>
+          <div className="mt-5 flex flex-wrap gap-2">
+            {socials.map((s) => (
+              <a
+                key={s.href}
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={s.label}
+                className="flex size-10 items-center justify-center rounded-full border border-border text-fg-muted transition-colors hover:border-border-strong hover:text-fg"
+              >
+                <SocialIcon label={s.label} />
+              </a>
+            ))}
+          </div>
           <div className="mt-6 overflow-hidden rounded-lg border border-border">
             <PlaceMap heightClass="place-map-sm" />
           </div>
@@ -74,9 +105,7 @@ export function SiteFooter() {
               </li>
             ))}
             <li>
-              <a href={site.links.email} className="hover:text-fg">
-                support@vcarde.com
-              </a>
+              <EmailLink />
             </li>
             <li>
               <a href={site.links.whatsapp} className="hover:text-fg">

@@ -63,7 +63,7 @@ function Page() {
           <Row label="Category" value="NFC business card printer" />
           <Row label="Address" value={site.address} />
           <Row label="Phone" value={site.phones.map((p) => p.display).join(" · ")} />
-          <Row label="Email" value="support@vcarde.com" />
+          <Row label="Email" value={`${site.emailUser} [at] ${site.emailDomain}`} />
           <Row label="Website" value="https://vcarde.com" />
           <Row label="Shop" value="https://m.vcarde.com" />
           <Row label="Sister press" value="GNK Services" />

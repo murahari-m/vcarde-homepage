@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/layout/page-shell";
+import { EmailLink } from "@/components/home/email-link";
 import { JsonLd } from "@/components/seo/json-ld";
 import { breadcrumbLd, origin, pageHead } from "@/lib/seo";
 import { site } from "@/lib/site";
@@ -52,15 +53,14 @@ function Page() {
           <li>Chip: NTAG 213, five-layer inlay, 5-year warranty</li>
           <li>Price from: ₹499 · free shipping in India</li>
           <li>Phones: {site.phones[0].display} · {site.phones[1].display}</li>
-          <li>Email: support@vcarde.com</li>
+          <li>
+            Email: {site.emailUser} [at] {site.emailDomain}
+          </li>
           <li>Logo: {origin}/brand/logo-vcarde.png</li>
         </ul>
 
         <p className="mt-8 text-sm text-fg-subtle">
-          Press and listing queries:{" "}
-          <a href={site.links.email} className="text-accent underline">
-            support@vcarde.com
-          </a>
+          Press and listing queries: <EmailLink className="text-accent underline" />
         </p>
       </article>
     </PageShell>

@@ -15,6 +15,8 @@ export const site = {
   phoneDisplayAlt: "+91 96 00 93 32 58",
   owner: "Kokila B",
   role: "Owner / Designer",
+  emailUser: "cc",
+  emailDomain: "vcarde.com",
   links: {
     home: "/",
     login: "https://vcarde.com/login",
@@ -26,12 +28,18 @@ export const site = {
     whatsapp: "https://wa.me/919600933258",
     phone: "tel:+917904721939",
     phoneAlt: "tel:+919600933258",
-    email: "mailto:support@vcarde.com",
     maps: "https://www.google.com/maps?q=No.1/6,+South+Mada+Street,+Mylapore,+Chennai+600004",
     mapsEmbed:
       "https://www.openstreetmap.org/export/embed.html?bbox=80.2643%2C13.0274%2C80.2743%2C13.0374&layer=mapnik&marker=13.0323753%2C80.2693363",
   },
 } as const;
+
+export const socials = [
+  { label: "X", href: "https://x.com/gnk_services" },
+  { label: "Facebook", href: "https://www.facebook.com/vCARDeNFC/" },
+  { label: "Instagram", href: "https://www.instagram.com/vcardeNFC" },
+  { label: "YouTube", href: "https://www.youtube.com/@gnkservices?sub_confirmation=1" },
+] as const;
 
 export const goldCards = [
   { id: "mark", name: "Mark VCARDe", file: "/cards/vcarde-cmyk.jpg", brand: "VCARDe · NFC" },

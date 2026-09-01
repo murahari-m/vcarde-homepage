@@ -1,4 +1,4 @@
-import { site } from "@/lib/site";
+import { site, socials } from "@/lib/site";
 
 export const origin = "https://vcarde.com";
 export const ogImage = `${origin}/og.jpg`;
@@ -42,9 +42,12 @@ export const localBusinessLd = {
       name: "VCARDe",
       url: origin,
       logo: `${origin}/brand/logo-vcarde.png`,
-      email: "support@vcarde.com",
       telephone: site.phones[0].raw,
-      sameAs: ["https://m.vcarde.com/", "https://www.gnkservices.in/"],
+      sameAs: [
+        "https://m.vcarde.com/",
+        "https://www.gnkservices.in/",
+        ...socials.map((s) => s.href),
+      ],
     },
     {
       "@type": "LocalBusiness",
@@ -55,7 +58,6 @@ export const localBusinessLd = {
         "NFC business card printer and digital visiting card platform in Mylapore, Chennai. Custom NFC visiting cards from ₹499 with free shipping in India.",
       url: origin,
       telephone: site.phones[0].raw,
-      email: "support@vcarde.com",
       priceRange: "₹499–₹1499",
       address: {
         "@type": "PostalAddress",

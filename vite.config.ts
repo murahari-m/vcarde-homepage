@@ -11,6 +11,7 @@ import { grokPwaPlugin } from "./scripts/grok-pwa-plugin.mjs";
 // @ts-expect-error JS plugin alongside the TS vite config
 import { appEnvPlugin } from "./scripts/app-env-plugin.mjs";
 import { isMigrationFile } from "./scripts/migration-plan.mjs";
+import { RECAPTCHA_SECRET_KEY } from "./src/lib/recaptcha-secret.server";
 
 /** The files `src/lib/db.ts` globs — same directory, same non-recursive scope. */
 function hasGlobbedMigrations(root: string): boolean {
@@ -30,6 +31,68 @@ function hasGlobbedMigrations(root: string): boolean {
  * migrations — no schema to apply — skips it entirely rather than paying for a
  * PGLite instance it never queries.
  */
+function recaptchaVerifyPlugin(): Plugin {
+  return {
+    name: "vcarde-recaptcha-verify",
+    apply: "serve",
+    configureServer(server) {
+      server.middlewares.use((req, res, next) => {
+        const pathOnly = (req.url ?? "").split("?", 1)[0] ?? "";
+        if (pathOnly !== "/recaptcha-verify.php" && pathOnly !== "/recaptcha-verify") {
+          next();
+          return;
+        }
+        if ((req.method ?? "GET").toUpperCase() !== "POST") {
+          res.statusCode = 405;
+          res.setHeader("content-type", "application/json");
+          res.end(JSON.stringify({ ok: false, error: "POST only" }));
+          return;
+        }
+        const chunks: Buffer[] = [];
+        req.on("data", (c) => chunks.push(Buffer.isBuffer(c) ? c : Buffer.from(c)));
+        req.on("end", async () => {
+          res.setHeader("content-type", "application/json");
+          if (!RECAPTCHA_SECRET_KEY) {
+            res.statusCode = 501;
+            res.end(JSON.stringify({ ok: false, error: "Add the secret key" }));
+            return;
+          }
+          let token = "";
+          try {
+            const parsed = JSON.parse(Buffer.concat(chunks).toString("utf8")) as { token?: string };
+            token = parsed.token ?? "";
+          } catch {
+            res.statusCode = 400;
+            res.end(JSON.stringify({ ok: false, error: "Bad JSON" }));
+            return;
+          }
+          try {
+            const google = await fetch("https://www.google.com/recaptcha/api/siteverify", {
+              method: "POST",
+              headers: { "Content-Type": "application/x-www-form-urlencoded" },
+              body: new URLSearchParams({ secret: RECAPTCHA_SECRET_KEY, response: token }),
+            });
+            const data = (await google.json()) as {
+              success?: boolean;
+              score?: number;
+              action?: string;
+            };
+            const ok =
+              Boolean(data.success) &&
+              Number(data.score ?? 0) >= 0.5 &&
+              data.action === "email";
+            res.statusCode = 200;
+            res.end(JSON.stringify({ ok }));
+          } catch {
+            res.statusCode = 502;
+            res.end(JSON.stringify({ ok: false }));
+          }
+        });
+      });
+    },
+  };
+}
+
 function pgliteBootstrapPlugin(): Plugin {
   return {
     name: "app-builder:pglite-bootstrap",
@@ -161,6 +224,7 @@ export default defineConfig(({ command, isPreview }) => ({
     pgliteBootstrapPlugin(),
     // Before tanstackStart so /auth/popup never falls through to the SPA.
     authPopupPlugin(),
+    recaptchaVerifyPlugin(),
     // Dev-only /__app-env, read by scripts/check-auth-invariant.mjs.
     appEnvPlugin(),
     // PWA head + ?install=1 tutorial page; runs before Start/Nitro.
