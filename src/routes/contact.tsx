@@ -43,6 +43,11 @@ function Page() {
       setError("Enter a valid email address.");
       return;
     }
+    const digits = phone.replace(/\D/g, "");
+    if (!/^\+?[0-9]+$/.test(phone) || digits.length < 10) {
+      setError("Enter a valid phone with at least 10 digits.");
+      return;
+    }
     setStatus("sending");
     try {
       if (!RECAPTCHA_SITE_KEY) throw new Error("Add the reCAPTCHA site key");
@@ -120,9 +125,17 @@ function Page() {
                 name="phone"
                 type="tel"
                 required
-                maxLength={20}
+                inputMode="tel"
+                minLength={10}
+                maxLength={16}
+                pattern="^\+?[0-9]{10,15}$"
+                title="Use + and digits only, at least 10 digits"
                 className={fieldClass}
                 autoComplete="tel"
+                onInput={(ev) => {
+                  const el = ev.currentTarget;
+                  el.value = el.value.replace(/[^\d+]/g, "").replace(/(?!^)\+/g, "");
+                }}
               />
             </label>
             <label className="text-sm text-fg">

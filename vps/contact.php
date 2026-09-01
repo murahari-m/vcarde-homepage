@@ -194,7 +194,13 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
   echo json_encode(["ok" => false, "error" => "Enter a valid email"]);
   exit;
 }
-if (strlen($phone) < 8 || strlen($city) < 2 || strlen($message) < 5) {
+$phoneDigits = preg_replace("/\D/", "", $phone) ?? "";
+if (!preg_match("/^\+?[0-9]+$/", $phone) || strlen($phoneDigits) < 10) {
+  http_response_code(422);
+  echo json_encode(["ok" => false, "error" => "Enter a valid phone with at least 10 digits"]);
+  exit;
+}
+if (strlen($city) < 2 || strlen($message) < 5) {
   http_response_code(422);
   echo json_encode(["ok" => false, "error" => "Fill all fields"]);
   exit;
