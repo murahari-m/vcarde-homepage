@@ -68,7 +68,7 @@ function Page() {
           <li>Bamboo NFC cards from ₹799</li>
           <li>Metal NFC cards from ₹1,499</li>
           <li>AI QR / artistic designs from ₹1,199</li>
-          <li>Google review NFC cards from ₹599</li>
+          <li>Google review NFC cards from ₹299</li>
         </ul>
         <p className="mt-4 text-base leading-relaxed text-fg-muted">
           Free shipping across India. 5-year warranty on printed NFC cards. Typical delivery

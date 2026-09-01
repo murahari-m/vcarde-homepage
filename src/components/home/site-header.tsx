@@ -9,6 +9,7 @@ const nav = [
   { label: "NFC cards", to: "/nfc-cards" },
   { label: "Templates", to: "/templates" },
   { label: "FAQ", to: "/faq" },
+  { label: "Contact", to: "/contact" },
 ];
 
 export function SiteHeader() {
@@ -20,7 +21,7 @@ export function SiteHeader() {
         <Link to="/" className="flex items-center gap-2" aria-label="VCARDe home">
           <img
             src="/brand/logo-vcarde.png"
-            alt="VCARDe"
+            alt={site.shortName}
             className="h-8 w-auto"
             width={120}
             height={32}

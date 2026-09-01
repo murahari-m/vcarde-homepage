@@ -1,35 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { RECAPTCHA_SITE_KEY } from "@/lib/recaptcha-keys";
+import { recaptchaToken, RECAPTCHA_SITE_KEY } from "@/lib/recaptcha-client";
 import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
-
-declare global {
-  interface Window {
-    grecaptcha?: {
-      ready: (cb: () => void) => void;
-      execute: (siteKey: string, opts: { action: string }) => Promise<string>;
-    };
-  }
-}
-
-let recaptchaScript: Promise<void> | null = null;
-
-function loadRecaptcha(siteKey: string) {
-  if (window.grecaptcha) return Promise.resolve();
-  if (recaptchaScript) return recaptchaScript;
-  recaptchaScript = new Promise((resolve, reject) => {
-    const s = document.createElement("script");
-    s.src = `https://www.google.com/recaptcha/api.js?render=${encodeURIComponent(siteKey)}`;
-    s.async = true;
-    s.defer = true;
-    s.onload = () => resolve();
-    s.onerror = () => reject(new Error("reCAPTCHA failed to load"));
-    document.head.appendChild(s);
-  });
-  return recaptchaScript;
-}
 
 async function verifyToken(token: string) {
   const res = await fetch("/recaptcha-verify.php", {
@@ -57,17 +31,7 @@ export function EmailLink({ className }: { className?: string }) {
     }
     setBusy(true);
     try {
-      await loadRecaptcha(RECAPTCHA_SITE_KEY);
-      const token = await new Promise<string>((resolve, reject) => {
-        const g = window.grecaptcha;
-        if (!g) {
-          reject(new Error("missing"));
-          return;
-        }
-        g.ready(() => {
-          g.execute(RECAPTCHA_SITE_KEY, { action: "email" }).then(resolve).catch(reject);
-        });
-      });
+      const token = await recaptchaToken("email");
       const ok = await verifyToken(token);
       if (!ok) {
         setError("Verification failed. WhatsApp us instead.");

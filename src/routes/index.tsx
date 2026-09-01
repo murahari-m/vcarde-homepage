@@ -12,6 +12,7 @@ import { ProofBar } from "@/components/home/proof-bar";
 import { SiteFooter } from "@/components/home/site-footer";
 import { SiteHeader } from "@/components/home/site-header";
 import { TemplatesGrid } from "@/components/home/templates-grid";
+import { UseCases } from "@/components/home/use-cases";
 import { JsonLd } from "@/components/seo/json-ld";
 import { localBusinessLd, pageHead } from "@/lib/seo";
 import { faqs } from "@/lib/site";
@@ -19,8 +20,8 @@ import { faqs } from "@/lib/site";
 export const Route = createFileRoute("/")({
   head: () =>
     pageHead(
-      "NFC Business Card in India from ₹499 | VCARDe",
-      "Buy a custom NFC business card from ₹499. Tap to share your contact, WhatsApp, and a live profile. Free shipping in India. Printed in Mylapore, Chennai. No app needed.",
+      "NFC Business Card in India from ₹499 | Smart NFC Card | VCARDe",
+      "Buy a custom NFC business card from ₹499. Tap to share contact, WhatsApp, and a live profile. PVC, metal, Google review cards. Free shipping in India. Printed in Chennai.",
       "/",
     ),
   component: Home,
@@ -47,6 +48,7 @@ function Home() {
         <ProofBar />
         <TemplateMarquee />
         <HowItWorks />
+        <UseCases />
         <TemplatesGrid />
         <NfcSection />
         <ReviewSection />

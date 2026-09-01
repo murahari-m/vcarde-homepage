@@ -1,9 +1,10 @@
 <?php
 /**
- * reCAPTCHA v3 verify — copy this file into your Laravel public/ folder
- * as recaptcha-verify.php so the homepage can POST to /recaptcha-verify.php
+ * reCAPTCHA v3 verify — copy to VPS public/ as recaptcha-verify.php
  *
- * Paste the Secret key between the quotes on the next line.
+ * Secret is read from Laravel .env (../.env):
+ *   RECAPTCHA_SECRET_KEY  or  NOCAPTCHA_SECRET
+ * Leave the quotes below empty unless you want to override .env.
  */
 $RECAPTCHA_SECRET_KEY = "";
 
@@ -16,9 +17,40 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
   exit;
 }
 
+function env_file_rv(string $path): array {
+  if (!is_readable($path)) return [];
+  $out = [];
+  foreach (file($path, FILE_IGNORE_NEW_LINES) ?: [] as $line) {
+    $line = trim($line);
+    if ($line === "" || str_starts_with($line, "#")) continue;
+    $eq = strpos($line, "=");
+    if ($eq === false) continue;
+    $k = trim(substr($line, 0, $eq));
+    $v = trim(substr($line, $eq + 1), " \t\"'");
+    if ($k !== "") $out[$k] = $v;
+  }
+  return $out;
+}
+
+if ($RECAPTCHA_SECRET_KEY === "") {
+  $fileEnv = [];
+  foreach ([__DIR__ . "/.env", __DIR__ . "/../.env", __DIR__ . "/../../.env"] as $p) {
+    if (is_readable($p)) {
+      $fileEnv = env_file_rv($p);
+      break;
+    }
+  }
+  foreach (["RECAPTCHA_SECRET_KEY", "NOCAPTCHA_SECRET", "GOOGLE_RECAPTCHA_SECRET", "RECAPTCHA_SECRET"] as $k) {
+    if (!empty($fileEnv[$k])) {
+      $RECAPTCHA_SECRET_KEY = $fileEnv[$k];
+      break;
+    }
+  }
+}
+
 if ($RECAPTCHA_SECRET_KEY === "") {
   http_response_code(501);
-  echo json_encode(["ok" => false, "error" => "Add the secret key in recaptcha-verify.php"]);
+  echo json_encode(["ok" => false, "error" => "Add NOCAPTCHA_SECRET or RECAPTCHA_SECRET_KEY in .env"]);
   exit;
 }
 

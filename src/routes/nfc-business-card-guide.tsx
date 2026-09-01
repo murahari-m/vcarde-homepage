@@ -85,7 +85,7 @@ function Page() {
         <h2 className="mt-12 text-xl text-fg">NFC business card price in India</h2>
         <ul className="mt-3 list-disc space-y-2 pl-5 text-base text-fg-muted">
           <li>PVC NFC business card from ₹499</li>
-          <li>Google review NFC card from ₹599</li>
+          <li>Google review NFC card from ₹299</li>
           <li>Bamboo from ₹799</li>
           <li>Foil / UV from ₹899</li>
           <li>Metal from ₹1,499</li>

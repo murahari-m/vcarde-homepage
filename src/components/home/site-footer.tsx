@@ -28,8 +28,8 @@ export function SiteFooter() {
             <img src="/brand/logo-vcarde.png" alt="VCARDe" className="h-8 w-auto" width={120} height={32} />
           </Link>
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-fg-muted">
-            NFC business cards and digital visiting cards from Mylapore, Chennai. Printed with{" "}
-            {site.sister}. Free shipping across India.
+            NFC business cards and digital visiting cards from Mylapore, Chennai. Printed by
+            parent company {site.parent}. Free shipping across India.
           </p>
           <div className="mt-5 flex flex-wrap gap-2">
             {socials.map((s) => (
@@ -68,6 +68,36 @@ export function SiteFooter() {
               </Link>
             </li>
             <li>
+              <Link to="/pvc-nfc-business-card" className="hover:text-fg">
+                PVC NFC business card
+              </Link>
+            </li>
+            <li>
+              <Link to="/metal-nfc-business-card" className="hover:text-fg">
+                Metal NFC business card
+              </Link>
+            </li>
+            <li>
+              <Link to="/nfc-google-reviews" className="hover:text-fg">
+                NFC Google review card
+              </Link>
+            </li>
+            <li>
+              <Link to="/nfc-vs-qr" className="hover:text-fg">
+                NFC vs QR code
+              </Link>
+            </li>
+            <li>
+              <Link to="/nfc-card-near" className="hover:text-fg">
+                NFC card near you
+              </Link>
+            </li>
+            <li>
+              <a href={site.links.qrcodely} className="hover:text-fg">
+                QRCodely
+              </a>
+            </li>
+            <li>
               <Link to="/templates" className="hover:text-fg">
                 Digital card templates
               </Link>
@@ -85,6 +115,11 @@ export function SiteFooter() {
             <li>
               <Link to="/faq" className="hover:text-fg">
                 FAQ
+              </Link>
+            </li>
+            <li>
+              <Link to="/contact" className="hover:text-fg">
+                Contact
               </Link>
             </li>
             <li>
@@ -122,7 +157,7 @@ export function SiteFooter() {
       </div>
       <div className="border-t border-border">
         <p className="mx-auto max-w-6xl px-4 py-5 text-xs text-fg-subtle sm:px-6">
-          © {new Date().getFullYear()} VCARDe · {site.sister}. NFC cards and NFC business cards in India.
+          © {new Date().getFullYear()} {site.name} · {site.parent}. NFC cards and NFC business cards in India.
         </p>
       </div>
     </footer>

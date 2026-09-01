@@ -23,7 +23,7 @@ export function HowItWorks() {
     <section id="how" className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
       <Reveal>
         <p className="text-xs font-medium uppercase tracking-caps text-accent">How it works</p>
-        <h2 className="mt-3 max-w-lg text-xl text-fg">Three steps. Then you never reprint a paper card.</h2>
+        <h2 className="mt-3 max-w-lg text-xl text-fg">How an NFC business card works</h2>
       </Reveal>
       <div className="mt-10 grid gap-4 lg:grid-cols-3">
         {steps.map((step, i) => (

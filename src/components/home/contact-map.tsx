@@ -9,9 +9,9 @@ export function ContactMap() {
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-20 sm:px-6 lg:grid-cols-2">
         <Reveal>
           <p className="text-xs font-medium uppercase tracking-caps text-accent">Visit</p>
-          <h2 className="mt-3 text-xl text-fg">VCARDe, Mylapore</h2>
+          <h2 className="mt-3 text-xl text-fg">VCARDe NFC Business Cards, Mylapore</h2>
           <p className="mt-4 max-w-md text-sm leading-relaxed text-fg-muted">
-            Print studio and office at {site.address}. Sister company {site.sister} handles
+            Print studio and office at {site.address}. Parent company {site.parent} handles
             foil, UV, and NFC print.
           </p>
           <p className="mt-6 flex items-start gap-2 text-sm text-fg">

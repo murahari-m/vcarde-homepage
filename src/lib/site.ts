@@ -1,5 +1,7 @@
 export const site = {
-  name: "VCARDe",
+  name: "VCARDe NFC Business Cards",
+  shortName: "VCARDe",
+  parent: "GNK Services",
   sister: "GNK Services",
   city: "Chennai",
   address: "No.1/6, South Mada Street, Mylapore, Chennai - 600004",
@@ -25,6 +27,7 @@ export const site = {
     faq: "https://vcarde.com/faq",
     nfc: "https://m.vcarde.com/",
     nfcShop: "https://m.vcarde.com/shop/",
+    qrcodely: "https://qrcodely.net/",
     whatsapp: "https://wa.me/919600933258",
     phone: "tel:+917904721939",
     phoneAlt: "tel:+919600933258",
@@ -270,7 +273,7 @@ export const nfcProducts = [
   },
   {
     name: "Review",
-    price: "From ₹599",
+    price: "From ₹299",
     material: "Google review tap",
     image: "/nfc/google-review.jpg",
     href: "https://m.vcarde.com/shop/",
@@ -304,7 +307,7 @@ export const faqs = [
   },
   {
     q: "How much does an NFC business card cost in India?",
-    a: "A VCARDe NFC business card starts at ₹499 for PVC, ₹799 for bamboo, and ₹1,499 for metal. Google review NFC cards start at ₹599. Shipping is free anywhere in India. The digital profile is free forever.",
+    a: "A VCARDe NFC business card starts at ₹499 for PVC, ₹799 for bamboo, and ₹1,499 for metal. Google review NFC cards start at ₹299. Shipping is free anywhere in India. The digital profile is free forever.",
   },
   {
     q: "Does an NFC business card work on iPhone?",
@@ -325,5 +328,25 @@ export const faqs = [
   {
     q: "What is the warranty and shipping?",
     a: "Printed NFC business cards include a 5-year chip warranty and free shipping anywhere in India. Typical delivery is 5–7 business days from Mylapore, Chennai.",
+  },
+  {
+    q: "Is there a monthly fee for an NFC business card?",
+    a: "No. The VCARDe digital profile is free forever. You pay once for the printed NFC business card. There is no subscription to keep the chip working.",
+  },
+  {
+    q: "NFC vs QR — which should I print?",
+    a: "Print both. NFC is faster in a handshake. QR covers phones with NFC off. Every VCARDe NFC business card includes an artistic QR that opens the same live profile.",
+  },
+  {
+    q: "Where is the NFC reader on an Android phone?",
+    a: "Most Android phones read NFC on the upper back, near the camera. Hold the NFC business card still for a second. If nothing happens, scan the QR on the same card.",
+  },
+  {
+    q: "Are NFC business cards good for events and seminars?",
+    a: "Yes. One tap replaces typing a number in a noisy hall. Sales teams and speakers use PVC NFC business cards from ₹499 so every person on the stall has one.",
+  },
+  {
+    q: "Do you deliver NFC cards to Tambaram, T. Nagar, or OMR?",
+    a: "Yes. We print in Mylapore and ship free across Chennai and India. Pickup is at No.1/6, South Mada Street, Mylapore. Open the NFC card near you page for your area.",
   },
 ] as const;

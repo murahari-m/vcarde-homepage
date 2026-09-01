@@ -59,14 +59,14 @@ function Page() {
           name, address, and phones exactly the same.
         </p>
         <dl className="mt-5 divide-y divide-border rounded-lg border border-border text-sm">
-          <Row label="Name" value="VCARDe" />
+          <Row label="Name" value="VCARDe NFC Business Cards" />
           <Row label="Category" value="NFC business card printer" />
           <Row label="Address" value={site.address} />
           <Row label="Phone" value={site.phones.map((p) => p.display).join(" · ")} />
           <Row label="Email" value={`${site.emailUser} [at] ${site.emailDomain}`} />
           <Row label="Website" value="https://vcarde.com" />
           <Row label="Shop" value="https://m.vcarde.com" />
-          <Row label="Sister press" value="GNK Services" />
+          <Row label="Parent company" value="GNK Services" />
         </dl>
 
         <div className="mt-8 overflow-hidden rounded-lg border border-border">

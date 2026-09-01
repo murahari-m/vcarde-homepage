@@ -1,0 +1,20 @@
+# INSERT these lines in public/.htaccess
+# ABOVE:  # Send Requests To Front Controller
+# Do not delete Laravel's existing rules.
+# Backup first:
+#   cp /home/runcloud/webapps/vcarde-2026/public/.htaccess \
+#      /home/runcloud/webapps/vcarde-2026/public/.htaccess.bak
+
+    # New homepage lives in /public/spa-home/ (Cursor)
+    RewriteRule ^$ spa-home/index.html [L]
+
+    # Static files from spa-home if not already in public/
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{DOCUMENT_ROOT}/spa-home/$1 -f
+    RewriteRule ^(.*)$ spa-home/$1 [L]
+
+    # Marketing routes → SPA
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(contact|about|faq|press|templates|nfc-business-cards|nfc-business-card-guide|nfc-cards|nfc-google-reviews|nfc-vs-qr|qr-code-generator|pvc-nfc-business-card|metal-nfc-business-card|nfc-card-near)(/.*)?$ spa-home/index.html [L]

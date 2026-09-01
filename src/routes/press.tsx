@@ -40,11 +40,11 @@ function Page() {
 
         <h2 className="mt-12 text-xl text-fg">Boilerplate</h2>
         <p className="mt-3 text-base leading-relaxed text-fg-muted">
-          VCARDe is a Chennai company that prints the NFC business card and hosts the free
-          digital visiting card behind it. Cards are pressed with sister studio GNK
-          Services at No.1/6, South Mada Street, Mylapore, Chennai 600004. PVC starts at
-          ₹499. Shipping is free in India. Recipients tap a phone — no app required.
-          Website: https://vcarde.com · Shop: https://m.vcarde.com
+          VCARDe NFC Business Cards is a Chennai brand of parent company GNK
+          Services. We print the NFC business card and host the free digital visiting card
+          behind it at No.1/6, South Mada Street, Mylapore, Chennai - 600004. PVC starts at
+          ₹499. Google review NFC cards start at ₹299. Shipping is free in India. Recipients
+          tap a phone — no app required. Website: https://vcarde.com · Shop: https://m.vcarde.com
         </p>
 
         <h2 className="mt-12 text-xl text-fg">Facts</h2>

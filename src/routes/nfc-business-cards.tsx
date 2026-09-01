@@ -11,7 +11,7 @@ export const Route = createFileRoute("/nfc-business-cards")({
   head: () =>
     pageHead(
       "NFC Business Card in India — From ₹499 | VCARDe",
-      "Buy a custom NFC business card from ₹499. Tap a phone to share contact and a live profile. PVC, bamboo, or metal. Free shipping in India. Printed in Chennai. No app.",
+      "Buy a custom NFC business card from ₹499. Google review NFC cards from ₹299. PVC, bamboo, or metal. Free shipping in India. Printed in Chennai. No app.",
       "/nfc-business-cards",
     ),
   component: Page,
@@ -19,7 +19,7 @@ export const Route = createFileRoute("/nfc-business-cards")({
 
 const prices = [
   { name: "PVC NFC business card", price: "₹499", note: "CR80 · 5-year chip" },
-  { name: "Google review NFC card", price: "₹599", note: "Horizontal or vertical" },
+  { name: "Google review NFC card", price: "₹299", note: "Horizontal or vertical" },
   { name: "Bamboo NFC business card", price: "₹799", note: "Wood grain · tap + QR" },
   { name: "Foil / UV NFC business card", price: "₹899", note: "Gold foil, spot UV" },
   { name: "Metal NFC business card", price: "₹1,499", note: "Steel face · NTAG inlay" },
@@ -112,7 +112,14 @@ function Page() {
           </table>
         </div>
         <p className="mt-3 text-sm text-fg-subtle">
-          Free shipping in India. 5-year chip warranty. Typical delivery 5–7 business days.
+          Free shipping in India. 5-year chip warranty. Typical delivery 5–7 business days.{" "}
+          <Link to="/pvc-nfc-business-card" className="text-accent underline">PVC NFC business card</Link>
+          {" · "}
+          <Link to="/metal-nfc-business-card" className="text-accent underline">Metal NFC business card</Link>
+          {" · "}
+          <Link to="/nfc-google-reviews" className="text-accent underline">NFC Google review card</Link>
+          {" · "}
+          <Link to="/nfc-vs-qr" className="text-accent underline">NFC vs QR</Link>
         </p>
 
         <h2 className="mt-14 text-xl text-fg">How to use an NFC business card</h2>
@@ -152,7 +159,7 @@ function Page() {
           <li>Made in Mylapore — you can visit No.1/6, South Mada Street.</li>
           <li>NTAG 213 chip inside a five-layer PVC stack, not a sticker on the back.</li>
           <li>Your artwork only. Foil, UV, and gold print available.</li>
-          <li>Sister studio GNK Services handles press and finish.</li>
+          <li>Parent company GNK Services handles press and finish.</li>
           <li>
             Talk to us on WhatsApp at {site.phoneDisplayAlt} or call {site.phoneDisplay}.
           </li>

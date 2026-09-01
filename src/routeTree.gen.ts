@@ -11,12 +11,20 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as FaqRouteImport } from './routes/faq'
+import { Route as MetalNfcBusinessCardRouteImport } from './routes/metal-nfc-business-card'
 import { Route as NfcBusinessCardGuideRouteImport } from './routes/nfc-business-card-guide'
 import { Route as NfcBusinessCardsRouteImport } from './routes/nfc-business-cards'
+import { Route as NfcCardNearRouteImport } from './routes/nfc-card-near'
 import { Route as NfcCardsRouteImport } from './routes/nfc-cards'
+import { Route as NfcGoogleReviewsRouteImport } from './routes/nfc-google-reviews'
+import { Route as NfcVsQrRouteImport } from './routes/nfc-vs-qr'
 import { Route as PressRouteImport } from './routes/press'
+import { Route as PvcNfcBusinessCardRouteImport } from './routes/pvc-nfc-business-card'
+import { Route as QrCodeGeneratorRouteImport } from './routes/qr-code-generator'
 import { Route as TemplatesRouteImport } from './routes/templates'
+import { Route as NfcCardNearAreaRouteImport } from './routes/nfc-card-near.$area'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -28,9 +36,19 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FaqRoute = FaqRouteImport.update({
   id: '/faq',
   path: '/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MetalNfcBusinessCardRoute = MetalNfcBusinessCardRouteImport.update({
+  id: '/metal-nfc-business-card',
+  path: '/metal-nfc-business-card',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NfcBusinessCardGuideRoute = NfcBusinessCardGuideRouteImport.update({
@@ -43,9 +61,24 @@ const NfcBusinessCardsRoute = NfcBusinessCardsRouteImport.update({
   path: '/nfc-business-cards',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NfcCardNearRoute = NfcCardNearRouteImport.update({
+  id: '/nfc-card-near',
+  path: '/nfc-card-near',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const NfcCardsRoute = NfcCardsRouteImport.update({
   id: '/nfc-cards',
   path: '/nfc-cards',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NfcGoogleReviewsRoute = NfcGoogleReviewsRouteImport.update({
+  id: '/nfc-google-reviews',
+  path: '/nfc-google-reviews',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NfcVsQrRoute = NfcVsQrRouteImport.update({
+  id: '/nfc-vs-qr',
+  path: '/nfc-vs-qr',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PressRoute = PressRouteImport.update({
@@ -53,84 +86,154 @@ const PressRoute = PressRouteImport.update({
   path: '/press',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PvcNfcBusinessCardRoute = PvcNfcBusinessCardRouteImport.update({
+  id: '/pvc-nfc-business-card',
+  path: '/pvc-nfc-business-card',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QrCodeGeneratorRoute = QrCodeGeneratorRouteImport.update({
+  id: '/qr-code-generator',
+  path: '/qr-code-generator',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TemplatesRoute = TemplatesRouteImport.update({
   id: '/templates',
   path: '/templates',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NfcCardNearAreaRoute = NfcCardNearAreaRouteImport.update({
+  id: '/$area',
+  path: '/$area',
+  getParentRoute: () => NfcCardNearRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
+  '/metal-nfc-business-card': typeof MetalNfcBusinessCardRoute
   '/nfc-business-card-guide': typeof NfcBusinessCardGuideRoute
   '/nfc-business-cards': typeof NfcBusinessCardsRoute
+  '/nfc-card-near': typeof NfcCardNearRouteWithChildren
   '/nfc-cards': typeof NfcCardsRoute
+  '/nfc-google-reviews': typeof NfcGoogleReviewsRoute
+  '/nfc-vs-qr': typeof NfcVsQrRoute
   '/press': typeof PressRoute
+  '/pvc-nfc-business-card': typeof PvcNfcBusinessCardRoute
+  '/qr-code-generator': typeof QrCodeGeneratorRoute
   '/templates': typeof TemplatesRoute
+  '/nfc-card-near/$area': typeof NfcCardNearAreaRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
+  '/metal-nfc-business-card': typeof MetalNfcBusinessCardRoute
   '/nfc-business-card-guide': typeof NfcBusinessCardGuideRoute
   '/nfc-business-cards': typeof NfcBusinessCardsRoute
+  '/nfc-card-near': typeof NfcCardNearRouteWithChildren
   '/nfc-cards': typeof NfcCardsRoute
+  '/nfc-google-reviews': typeof NfcGoogleReviewsRoute
+  '/nfc-vs-qr': typeof NfcVsQrRoute
   '/press': typeof PressRoute
+  '/pvc-nfc-business-card': typeof PvcNfcBusinessCardRoute
+  '/qr-code-generator': typeof QrCodeGeneratorRoute
   '/templates': typeof TemplatesRoute
+  '/nfc-card-near/$area': typeof NfcCardNearAreaRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
+  '/metal-nfc-business-card': typeof MetalNfcBusinessCardRoute
   '/nfc-business-card-guide': typeof NfcBusinessCardGuideRoute
   '/nfc-business-cards': typeof NfcBusinessCardsRoute
+  '/nfc-card-near': typeof NfcCardNearRouteWithChildren
   '/nfc-cards': typeof NfcCardsRoute
+  '/nfc-google-reviews': typeof NfcGoogleReviewsRoute
+  '/nfc-vs-qr': typeof NfcVsQrRoute
   '/press': typeof PressRoute
+  '/pvc-nfc-business-card': typeof PvcNfcBusinessCardRoute
+  '/qr-code-generator': typeof QrCodeGeneratorRoute
   '/templates': typeof TemplatesRoute
+  '/nfc-card-near/$area': typeof NfcCardNearAreaRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/about'
+    | '/contact'
     | '/faq'
+    | '/metal-nfc-business-card'
     | '/nfc-business-card-guide'
     | '/nfc-business-cards'
+    | '/nfc-card-near'
     | '/nfc-cards'
+    | '/nfc-google-reviews'
+    | '/nfc-vs-qr'
     | '/press'
+    | '/pvc-nfc-business-card'
+    | '/qr-code-generator'
     | '/templates'
+    | '/nfc-card-near/$area'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
+    | '/contact'
     | '/faq'
+    | '/metal-nfc-business-card'
     | '/nfc-business-card-guide'
     | '/nfc-business-cards'
+    | '/nfc-card-near'
     | '/nfc-cards'
+    | '/nfc-google-reviews'
+    | '/nfc-vs-qr'
     | '/press'
+    | '/pvc-nfc-business-card'
+    | '/qr-code-generator'
     | '/templates'
+    | '/nfc-card-near/$area'
   id:
     | '__root__'
     | '/'
     | '/about'
+    | '/contact'
     | '/faq'
+    | '/metal-nfc-business-card'
     | '/nfc-business-card-guide'
     | '/nfc-business-cards'
+    | '/nfc-card-near'
     | '/nfc-cards'
+    | '/nfc-google-reviews'
+    | '/nfc-vs-qr'
     | '/press'
+    | '/pvc-nfc-business-card'
+    | '/qr-code-generator'
     | '/templates'
+    | '/nfc-card-near/$area'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  ContactRoute: typeof ContactRoute
   FaqRoute: typeof FaqRoute
+  MetalNfcBusinessCardRoute: typeof MetalNfcBusinessCardRoute
   NfcBusinessCardGuideRoute: typeof NfcBusinessCardGuideRoute
   NfcBusinessCardsRoute: typeof NfcBusinessCardsRoute
+  NfcCardNearRoute: typeof NfcCardNearRouteWithChildren
   NfcCardsRoute: typeof NfcCardsRoute
+  NfcGoogleReviewsRoute: typeof NfcGoogleReviewsRoute
+  NfcVsQrRoute: typeof NfcVsQrRoute
   PressRoute: typeof PressRoute
+  PvcNfcBusinessCardRoute: typeof PvcNfcBusinessCardRoute
+  QrCodeGeneratorRoute: typeof QrCodeGeneratorRoute
   TemplatesRoute: typeof TemplatesRoute
 }
 
@@ -150,11 +253,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/faq': {
       id: '/faq'
       path: '/faq'
       fullPath: '/faq'
       preLoaderRoute: typeof FaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/metal-nfc-business-card': {
+      id: '/metal-nfc-business-card'
+      path: '/metal-nfc-business-card'
+      fullPath: '/metal-nfc-business-card'
+      preLoaderRoute: typeof MetalNfcBusinessCardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/nfc-business-card-guide': {
@@ -171,11 +288,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NfcBusinessCardsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/nfc-card-near': {
+      id: '/nfc-card-near'
+      path: '/nfc-card-near'
+      fullPath: '/nfc-card-near'
+      preLoaderRoute: typeof NfcCardNearRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/nfc-cards': {
       id: '/nfc-cards'
       path: '/nfc-cards'
       fullPath: '/nfc-cards'
       preLoaderRoute: typeof NfcCardsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nfc-google-reviews': {
+      id: '/nfc-google-reviews'
+      path: '/nfc-google-reviews'
+      fullPath: '/nfc-google-reviews'
+      preLoaderRoute: typeof NfcGoogleReviewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nfc-vs-qr': {
+      id: '/nfc-vs-qr'
+      path: '/nfc-vs-qr'
+      fullPath: '/nfc-vs-qr'
+      preLoaderRoute: typeof NfcVsQrRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/press': {
@@ -185,6 +323,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PressRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/pvc-nfc-business-card': {
+      id: '/pvc-nfc-business-card'
+      path: '/pvc-nfc-business-card'
+      fullPath: '/pvc-nfc-business-card'
+      preLoaderRoute: typeof PvcNfcBusinessCardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/qr-code-generator': {
+      id: '/qr-code-generator'
+      path: '/qr-code-generator'
+      fullPath: '/qr-code-generator'
+      preLoaderRoute: typeof QrCodeGeneratorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/templates': {
       id: '/templates'
       path: '/templates'
@@ -192,17 +344,43 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TemplatesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/nfc-card-near/$area': {
+      id: '/nfc-card-near/$area'
+      path: '/$area'
+      fullPath: '/nfc-card-near/$area'
+      preLoaderRoute: typeof NfcCardNearAreaRouteImport
+      parentRoute: typeof NfcCardNearRoute
+    }
   }
 }
+
+interface NfcCardNearRouteChildren {
+  NfcCardNearAreaRoute: typeof NfcCardNearAreaRoute
+}
+
+const NfcCardNearRouteChildren: NfcCardNearRouteChildren = {
+  NfcCardNearAreaRoute: NfcCardNearAreaRoute,
+}
+
+const NfcCardNearRouteWithChildren = NfcCardNearRoute._addFileChildren(
+  NfcCardNearRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  ContactRoute: ContactRoute,
   FaqRoute: FaqRoute,
+  MetalNfcBusinessCardRoute: MetalNfcBusinessCardRoute,
   NfcBusinessCardGuideRoute: NfcBusinessCardGuideRoute,
   NfcBusinessCardsRoute: NfcBusinessCardsRoute,
+  NfcCardNearRoute: NfcCardNearRouteWithChildren,
   NfcCardsRoute: NfcCardsRoute,
+  NfcGoogleReviewsRoute: NfcGoogleReviewsRoute,
+  NfcVsQrRoute: NfcVsQrRoute,
   PressRoute: PressRoute,
+  PvcNfcBusinessCardRoute: PvcNfcBusinessCardRoute,
+  QrCodeGeneratorRoute: QrCodeGeneratorRoute,
   TemplatesRoute: TemplatesRoute,
 }
 export const routeTree = rootRouteImport

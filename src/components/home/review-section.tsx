@@ -49,7 +49,7 @@ export function ReviewSection() {
             </h2>
             <p className="mt-3 max-w-lg text-sm leading-relaxed text-fg-muted">
               Leave a card at the counter. Guests tap, rate, and you collect reviews without
-              an app. Printed in Mylapore by GNK Services.
+              an app. From ₹299. Printed in Mylapore by GNK Services.
             </p>
           </Reveal>
           <Reveal delay={80}>
