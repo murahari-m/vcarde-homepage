@@ -194,9 +194,9 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
   echo json_encode(["ok" => false, "error" => "Enter a valid email"]);
   exit;
 }
-if (strlen($phone) < 8 || strlen($message) < 5) {
+if (strlen($phone) < 8 || strlen($city) < 2 || strlen($message) < 5) {
   http_response_code(422);
-  echo json_encode(["ok" => false, "error" => "Enter phone and a short message"]);
+  echo json_encode(["ok" => false, "error" => "Fill all fields"]);
   exit;
 }
 if ($token === "" || $RECAPTCHA_SECRET_KEY === "") {

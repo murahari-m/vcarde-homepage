@@ -29,7 +29,20 @@ function Page() {
     const form = e.currentTarget;
     const data = new FormData(form);
     if (String(data.get("website") ?? "")) return;
+    const name = String(data.get("name") ?? "").trim();
+    const email = String(data.get("email") ?? "").trim();
+    const phone = String(data.get("phone") ?? "").trim();
+    const city = String(data.get("city") ?? "").trim();
+    const message = String(data.get("message") ?? "").trim();
     setError("");
+    if (!name || !email || !phone || !city || !message) {
+      setError("Fill all fields.");
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+      setError("Enter a valid email address.");
+      return;
+    }
     setStatus("sending");
     try {
       if (!RECAPTCHA_SITE_KEY) throw new Error("Add the reCAPTCHA site key");
@@ -37,14 +50,7 @@ function Page() {
       const res = await fetch("/contact.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          token,
-          name: String(data.get("name") ?? "").trim(),
-          email: String(data.get("email") ?? "").trim(),
-          phone: String(data.get("phone") ?? "").trim(),
-          city: String(data.get("city") ?? "").trim(),
-          message: String(data.get("message") ?? "").trim(),
-        }),
+        body: JSON.stringify({ token, name, email, phone, city, message }),
       });
       const json = (await res.json()) as { ok?: boolean; error?: string };
       if (!res.ok || !json.ok) throw new Error(json.error || "Could not send");
@@ -82,7 +88,7 @@ function Page() {
 
         {status === "sent" ? (
           <p className="mt-10 rounded-xl border border-border bg-surface px-4 py-6 text-sm text-fg">
-            Message sent. We will reply from {site.emailUser}@{site.emailDomain}. You can also{" "}
+            Message sent. We will get back to you. You can also{" "}
             <a href={site.links.whatsapp} className="text-accent underline">
               WhatsApp
             </a>
@@ -100,7 +106,10 @@ function Page() {
                 name="email"
                 type="email"
                 required
+                inputMode="email"
                 maxLength={120}
+                pattern="^[^\s@]+@[^\s@]+\.[^\s@]{2,}$"
+                title="Enter a valid email address"
                 className={fieldClass}
                 autoComplete="email"
               />
@@ -118,7 +127,13 @@ function Page() {
             </label>
             <label className="text-sm text-fg">
               City
-              <input name="city" maxLength={80} className={fieldClass} autoComplete="address-level2" />
+              <input
+                name="city"
+                required
+                maxLength={80}
+                className={fieldClass}
+                autoComplete="address-level2"
+              />
             </label>
             <label className="text-sm text-fg">
               Message
@@ -136,9 +151,7 @@ function Page() {
                 <a href={site.links.whatsapp}>WhatsApp instead</a>
               </Button>
             </div>
-            <p className="text-xs text-fg-subtle">
-              Protected by reCAPTCHA v3. Sending goes to {site.emailUser}@{site.emailDomain}.
-            </p>
+            <p className="text-xs text-fg-subtle">Protected by reCAPTCHA.</p>
           </form>
         )}
       </article>
