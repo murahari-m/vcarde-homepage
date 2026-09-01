@@ -1,9 +1,31 @@
+import { useEffect } from "react";
 import { createRootRoute, HeadContent, Outlet, Scripts } from "@tanstack/react-router";
 import { AuthProvider } from "@/lib/auth/provider";
 import { PreviewHostBridge } from "@/components/preview-host-bridge";
+import { installDomGuard } from "@/lib/dom-guard";
 import appCss from "../styles.css?url";
 
 const APP_NAME = "VCARDe";
+
+function RootShell() {
+  useEffect(() => {
+    installDomGuard();
+  }, []);
+  return (
+    <html lang="en-IN" className="antialiased" suppressHydrationWarning>
+      <head>
+        <HeadContent />
+      </head>
+      <body className="bg-bg text-fg">
+        <PreviewHostBridge />
+        <AuthProvider>
+          <Outlet />
+        </AuthProvider>
+        <Scripts />
+      </body>
+    </html>
+  );
+}
 
 export const Route = createRootRoute({
   head: () => ({
@@ -34,18 +56,5 @@ export const Route = createRootRoute({
       },
     ],
   }),
-  component: () => (
-    <html lang="en-IN" className="antialiased" suppressHydrationWarning>
-      <head>
-        <HeadContent />
-      </head>
-      <body className="bg-bg text-fg">
-        <PreviewHostBridge />
-        <AuthProvider>
-          <Outlet />
-        </AuthProvider>
-        <Scripts />
-      </body>
-    </html>
-  ),
+  component: RootShell,
 });

@@ -119,7 +119,11 @@ function contactFormPlugin(): Plugin {
     configureServer(server) {
       server.middlewares.use((req, res, next) => {
         const pathOnly = (req.url ?? "").split("?", 1)[0] ?? "";
-        if (pathOnly !== "/contact.php" && pathOnly !== "/contact-send") {
+        if (
+          pathOnly !== "/vcarde-contact.php" &&
+          pathOnly !== "/contact.php" &&
+          pathOnly !== "/contact-send"
+        ) {
           next();
           return;
         }

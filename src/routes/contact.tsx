@@ -52,7 +52,7 @@ function Page() {
     try {
       if (!RECAPTCHA_SITE_KEY) throw new Error("Add the reCAPTCHA site key");
       const token = await recaptchaToken("contact");
-      const res = await fetch("/contact.php", {
+      const res = await fetch("/vcarde-contact.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ token, name, email, phone, city, message }),

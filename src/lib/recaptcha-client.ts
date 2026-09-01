@@ -1,3 +1,4 @@
+import { installDomGuard } from "@/lib/dom-guard";
 import { RECAPTCHA_SITE_KEY } from "@/lib/recaptcha-keys";
 
 declare global {
@@ -13,10 +14,20 @@ let recaptchaScript: Promise<void> | null = null;
 
 function loadRecaptcha(siteKey: string) {
   if (typeof window === "undefined") return Promise.reject(new Error("no window"));
+  installDomGuard();
   if (window.grecaptcha) return Promise.resolve();
   if (recaptchaScript) return recaptchaScript;
+  const existing = document.getElementById("vcarde-recaptcha");
+  if (existing) {
+    recaptchaScript = new Promise((resolve) => {
+      existing.addEventListener("load", () => resolve(), { once: true });
+      if (window.grecaptcha) resolve();
+    });
+    return recaptchaScript;
+  }
   recaptchaScript = new Promise((resolve, reject) => {
     const s = document.createElement("script");
+    s.id = "vcarde-recaptcha";
     s.src = `https://www.google.com/recaptcha/api.js?render=${encodeURIComponent(siteKey)}`;
     s.async = true;
     s.defer = true;
