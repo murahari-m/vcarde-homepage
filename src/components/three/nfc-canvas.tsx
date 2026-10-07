@@ -1,10 +1,31 @@
 import { Canvas, useFrame } from "@react-three/fiber";
 import { ContactShadows, Float, useTexture } from "@react-three/drei";
-import { Suspense, useEffect, useRef, useState } from "react";
+import { Component, Suspense, useEffect, useRef, useState, type ReactNode } from "react";
 import * as THREE from "three";
 
 const FRONT = "/cards/vcarde-gilt.jpg";
 const BACK = "/cards/vcarde-field.jpg";
+
+function CardPhoto({ alt }: { alt: string }) {
+  return (
+    <div className="hero-3d">
+      <img src={FRONT} alt={alt} width={1050} height={600} />
+    </div>
+  );
+}
+
+class CardBoundary extends Component<{ children: ReactNode }, { bad: boolean }> {
+  state = { bad: false };
+  static getDerivedStateFromError() {
+    return { bad: true };
+  }
+  render() {
+    if (this.state.bad) {
+      return <CardPhoto alt="VCARDe gold and green NFC business card" />;
+    }
+    return this.props.children;
+  }
+}
 
 function GoldCard() {
   const group = useRef<THREE.Group>(null);
@@ -84,30 +105,28 @@ export function NfcCanvas() {
   }, []);
 
   if (ok === false) {
-    return (
-      <div className="hero-3d">
-        <img src={FRONT} alt="VCARDe gold and green NFC business card" width={1050} height={600} />
-      </div>
-    );
+    return <CardPhoto alt="VCARDe gold and green NFC business card" />;
   }
 
   return (
-    <div className="hero-3d">
-      {ok ? (
-        <Canvas
-          dpr={[1, 1.75]}
-          gl={{ antialias: true, alpha: true }}
-          camera={{ position: [0, 0.18, 3.05], fov: 34 }}
-          frameloop={reduced ? "demand" : "always"}
-        >
-          <Suspense fallback={null}>
-            <Scene />
-          </Suspense>
-        </Canvas>
-      ) : (
-        <img src={FRONT} alt="" width={1050} height={600} className="hero-3d-fallback" />
-      )}
-      <p className="hero-3d-hint">Move your cursor</p>
-    </div>
+    <CardBoundary>
+      <div className="hero-3d">
+        {ok ? (
+          <Canvas
+            dpr={[1, 1.5]}
+            gl={{ antialias: true, alpha: true, powerPreference: "low-power" }}
+            camera={{ position: [0, 0.18, 3.05], fov: 34 }}
+            frameloop={reduced ? "demand" : "always"}
+          >
+            <Suspense fallback={null}>
+              <Scene />
+            </Suspense>
+          </Canvas>
+        ) : (
+          <img src={FRONT} alt="" width={1050} height={600} className="hero-3d-fallback" />
+        )}
+        <p className="hero-3d-hint">Move your cursor</p>
+      </div>
+    </CardBoundary>
   );
 }
